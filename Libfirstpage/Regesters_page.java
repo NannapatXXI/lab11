@@ -1,10 +1,10 @@
-package lib;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class Form1 extends JFrame implements ActionListener{
+public class Regesters_page extends JFrame implements ActionListener{
 
     Container cp ;
     JLabel name , id ;
@@ -12,7 +12,7 @@ public class Form1 extends JFrame implements ActionListener{
     JButton b1,b2 ;
     String Check1;
     String Check2;
-    public Form1(){
+    public Regesters_page(){
         Initial();
         setComponent();
         Finally();
@@ -21,6 +21,7 @@ public class Form1 extends JFrame implements ActionListener{
     public void Initial(){
         cp = this.getContentPane();
         cp.setLayout(null);
+        
     }
     public void setComponent(){
         id = new JLabel("ID : ");
@@ -28,12 +29,12 @@ public class Form1 extends JFrame implements ActionListener{
         t1 = new JTextField(20);
         t2 = new JTextField(20);
         b1 = new JButton("Add");
-        b2 = new JButton("Clear");  
+        b2 = new JButton("Close");  
         
         id.setBounds(32, 10, 60, 25);
         name.setBounds(10, 40, 60, 25);
         t1.setBounds(60, 10, 120, 25);
-        t2.setBounds(60, 40, 180, 25);
+        t2.setBounds(60, 40, 120, 25);
         b1.setBounds(30, 80, 70, 25);
         b2.setBounds(120, 80, 70, 25);
         b1.addActionListener(this);
@@ -43,6 +44,7 @@ public class Form1 extends JFrame implements ActionListener{
         cp.add(b1) ; cp.add(b2);
     }
     public void Finally(){
+        
         this.setSize(270, 160);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -50,6 +52,7 @@ public class Form1 extends JFrame implements ActionListener{
     }
    
     public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getSource());
       if (e.getSource() == b1) {
           Check1 = t1.getText();
           Check2 = t2.getText();
@@ -73,10 +76,12 @@ public class Form1 extends JFrame implements ActionListener{
             Popup(error);
         }else{
             write(Check1, Check2);
-            Popup("Complete");
+         //   Popup("Complete");
+            this.setVisible(false);
         }
        
       }else if (e.getSource() == b2) {
+        this.setVisible(false);
         t1.setText("");
         t2.setText("");
       }
@@ -86,10 +91,10 @@ public class Form1 extends JFrame implements ActionListener{
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            fo = new File("./file/STD.csv");
-            fw = new FileWriter(fo);
+            fo = new File("./file/User.csv");
+            fw = new FileWriter(fo,true);
             bw = new BufferedWriter(fw);
-            bw.write(id + "," + name);
+            bw.write(id + "," + name+ "\n");
             System.out.println("InCheckfiled");
             
         } catch (Exception a) {
@@ -105,14 +110,14 @@ public class Form1 extends JFrame implements ActionListener{
     public void Popup(String s){
         JDialog d = new JDialog();
         JLabel i = new JLabel(s);
-        i.setBounds(50, 100, 200,  50);
+        i.setBounds(0, 30, 270,  50);
+        d.getContentPane().setLayout(null);
         d.getContentPane().add(i);
-        d.pack();
-       
+        d.pack();      
         d.setSize(270, 160);
         d.setVisible(true);
-        d.setLocationRelativeTo(null);
-        d.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        d.setLocationRelativeTo(null);   
+        d.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
     }
     }
-
+    
