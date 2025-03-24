@@ -26,11 +26,20 @@ public class Firstpage extends JFrame{
     public void setComponent(){
         id = new JLabel("ID : ");
         name = new JLabel("Name : ");
-        t1 = new JTextField(20);
-        t2 = new JTextField(20);
+        t1 = new JTextField("Please input",20);
+        t2 = new JTextField("Please input",20);
         b1 = new JButton("Regesters");
         b2 = new JButton("Sign");  
 
+        t1.addFocusListener(new Fo(){
+             
+            public void focusLost(FocusEvent e) {
+                if (!t1.getText().equals("Please input")) {
+                    t1.setText("พิมไรหน่อยน้อง");
+                    System.out.println("Test in fo");
+                }
+            }
+        });
 
         t1.addKeyListener(new tmp(){
             public void keyTyped(KeyEvent e) {
@@ -66,7 +75,7 @@ public class Firstpage extends JFrame{
                String name =  t1.getText();
                String password = t2.getText();     
                String Full = name + ","+password; 
-               if (d.equals(Full)) {
+               if (d.equals(Full)) {// 1,p == Full ไหม ไม่ -> 111,Peak == Full
                     new Menu();
                     System.out.println("มาแล้วลูกจ้า");
                     status = false;
@@ -174,3 +183,13 @@ class win implements WindowListener{
      }
     
 }
+class Fo implements FocusListener{
+    @Override
+public void focusGained(FocusEvent e) {
+   }
+
+@Override
+public void focusLost(FocusEvent e) {
+}
+}
+
